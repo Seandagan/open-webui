@@ -182,12 +182,16 @@ async def fetch_url(url, key):
     timeout = aiohttp.ClientTimeout(total=3)
     try:
         headers = {"Authorization": f"Bearer {key}"}
+        log.warn(f"trying {url} {headers} {timeout}")
         async with aiohttp.ClientSession(timeout=timeout, trust_env=True) as session:
+            log.warn("trying pass 1")
             async with session.get(url, headers=headers) as response:
+                log.warn("trying pass 2")
                 return await response.json()
     except Exception as e:
         # Handle connection error here
-        log.error(f"Connection error: {e}")
+
+        log.error(f"shoshan Connection error: {e}")
         return None
 
 
@@ -239,8 +243,9 @@ def merge_models_lists(model_lists):
 def is_openai_api_disabled():
     api_keys = app.state.config.OPENAI_API_KEYS
     no_keys = len(api_keys) == 1 and api_keys[0] == ""
-    return no_keys or not app.state.config.ENABLE_OPENAI_API
-
+    o =  no_keys or not app.state.config.ENABLE_OPENAI_API
+    log.warn(f"open_ai_api disabled is {o}")
+    return o
 
 async def get_all_models_raw() -> list:
     if is_openai_api_disabled():
