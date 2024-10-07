@@ -383,7 +383,7 @@ async def generate_chat_completion(
 ):
     idx = 0
     payload = {**form_data}
-
+    payload["stream"]= False
     if "metadata" in payload:
         del payload["metadata"]
 
@@ -451,15 +451,15 @@ async def generate_chat_completion(
         session = aiohttp.ClientSession(
             trust_env=True, timeout=aiohttp.ClientTimeout(total=AIOHTTP_CLIENT_TIMEOUT)
         )
+        log.warn(f"try chat {url}/chat/completions {payload} {headers}")
         r = await session.request(
             method="POST",
             url=f"{url}/chat/completions",
             data=payload,
             headers=headers,
         )
-
         # Check if response is SSE
-        if "text/event-stream" in r.headers.get("Content-Type", ""):
+        if False and "text/event-stream" in r.headers.get("Content-Type", ""):
             streaming = True
             return StreamingResponse(
                 r.content,
@@ -472,6 +472,8 @@ async def generate_chat_completion(
         else:
             try:
                 response = await r.json()
+                log.warn(f"chat complete response after coroutine: {response}")
+
             except Exception as e:
                 log.error(e)
                 response = await r.text()
