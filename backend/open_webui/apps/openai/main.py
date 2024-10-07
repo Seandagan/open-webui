@@ -472,13 +472,15 @@ async def generate_chat_completion(
         else:
             try:
                 response = await r.json()
-                log.warn(f"chat complete response after coroutine: {response}")
+                log.warn(f"response after coroutine json: {response}")
 
             except Exception as e:
                 log.error(e)
                 response = await r.text()
 
             r.raise_for_status()
+            log.warn(f"before return, response={response}")
+
             return response
     except Exception as e:
         log.exception(e)
