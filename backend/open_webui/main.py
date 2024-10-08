@@ -1441,7 +1441,7 @@ async def update_task_config(form_data: TaskConfigForm, user=Depends(get_admin_u
 @app.post("/api/task/title/completions")
 async def generate_title(form_data: dict, user=Depends(get_verified_user)):
     print("generate_title")
-
+    return {'choices': [{'finish_reason': 'length', 'index': 0, 'logprobs': None, 'message': {'content': '"title"', 'role': 'assistant'}, 'references': None}], 'created': 1728327947, 'id': 'placeholder', 'model': 'fix----Phi-3.5-mini-instruct', 'object': 'chat.completion', 'usage': {'completion_tokens': 50, 'prompt_tokens': 30, 'total_tokens': 80}}
     model_id = form_data["model"]
     if model_id not in app.state.MODELS:
         raise HTTPException(
