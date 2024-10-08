@@ -10,7 +10,7 @@
 
 	export let params = {
 		// Advanced
-		stream_response: null, // Set stream responses for this model individually
+		stream_response: false, // Set stream responses for this model individually
 		seed: null,
 		stop: null,
 		temperature: null,
@@ -62,9 +62,9 @@
 				type="button"
 			>
 				{#if params.stream_response === true}
-					<span class="ml-2 self-center">{$i18n.t('On')}</span>
+					<span class="ml-2 self-center">{$i18n.t('Onn')}</span>
 				{:else if params.stream_response === false}
-					<span class="ml-2 self-center">{$i18n.t('Off')}</span>
+					<span class="ml-2 self-center">{$i18n.t('Offf')}</span>
 				{:else}
 					<span class="ml-2 self-center">{$i18n.t('Default')}</span>
 				{/if}
