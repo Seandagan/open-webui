@@ -169,7 +169,7 @@
 				? parseInt(localStorage?.chatControlsSize ?? '30')
 					? parseInt(localStorage?.chatControlsSize ?? '30')
 					: 30
-				: 0}
+				: 30}
 			onResize={(size) => {
 				if (size === 0) {
 					showControls.set(false);
