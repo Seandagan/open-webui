@@ -6,6 +6,7 @@ cd "$SCRIPT_DIR" || exit
 KEY_FILE=.webui_secret_key
 
 PORT="${PORT:-8080}"
+PORT="8443"
 HOST="${HOST:-0.0.0.0}"
 if test "$WEBUI_SECRET_KEY $WEBUI_JWT_SECRET_KEY" = " "; then
   echo "Loading WEBUI_SECRET_KEY from file, not provided as an environment variable."
